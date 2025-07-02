@@ -16,8 +16,12 @@ const app = express();
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
-}).then(() => console.log("MongoDB connected"))
-  .catch(err => console.log("Mongo error:", err));
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 20000 // 20 seconds instead of 10
+})
+.then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
